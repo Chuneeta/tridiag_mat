@@ -36,9 +36,19 @@ def get_inverse_elm(mat, i, j):
     
     return T_ij
 
-def get_approx_inverse(mat):
+def _find_convergence(mat, inv_mat, max_iter=25, tol=1e-11):
+    I_true = np.identity(len(mat))
+    I_est = np.dot(mat, inv_mat)
+    chisq = np.sum(I_est - I_true)**2
+    iter_n = 0
+    while chisq > tol or iter_n < max_iter:
+        I_est_inv = _eval_approx_inverse(I_est)
+        I_est = np.dot(I_est, I_est_inv)
+        iter_n += 1
+    return np.dot(inv_mat, I_est)
+
+def _eval_approx_inverse(mat):
     r, c = mat.shape
-    assert r == c, 'Square matrix is required'
     M_inv = np.zeros((r, c))
     i = np.arange(c - 1)
     M_inv[i, i] = 1 / mat[i, i]
@@ -46,6 +56,14 @@ def get_approx_inverse(mat):
     M_inv[i + 1, i] = -1 * mat[i + 1, i] / (mat[i, i] * mat[i + 1, i + 1])
     # filling in last element
     M_inv[c-1, c-1] = get_inverse_elm(mat, c-1, c-1)
+    
+    return M_inv
+
+def get_approx_inverse(mat):
+    r, c = mat.shape
+    assert r == c, 'Square matrix is required'
+    M_inv = _eval_approx_inverse(mat)
+    M_inv = _find_convergence(mat, M_inv, tol=1e-3)
     
     return M_inv
 
