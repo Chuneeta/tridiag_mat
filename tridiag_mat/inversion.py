@@ -41,11 +41,11 @@ def get_approx_inverse(mat):
     assert r == c, 'Square matrix is required'
     M_inv = np.zeros((r, c))
     i = np.arange(c - 1)
-    M_inv[i, i] = [get_inverse_elm(mat, k, k) for k in range(c - 1)]
-    M_inv[i, i + 1] = [get_inverse_elm(mat, k, k+1) for k in range(c - 1)]
-    M_inv[i + 1, i] = [get_inverse_elm(mat, k+1, k) for k in range(c - 1)]
+    M_inv[i, i] = 1 / mat[i, i]
+    M_inv[i, i + 1] = -1 * mat[i, i + 1] / (mat[i, i] * mat[i + 1, i + 1])
+    M_inv[i + 1, i] = -1 * mat[i + 1, i] / (mat[i, i] * mat[i + 1, i + 1])
     # filling in last element
-    M_inv[4, 4] = get_inverse_elm(mat, c-1, c-1)
+    M_inv[c-1, c-1] = get_inverse_elm(mat, c-1, c-1)
     
     return M_inv
 
