@@ -36,6 +36,19 @@ def get_inverse_elm(mat, i, j):
     
     return T_ij
 
+def get_approx_inverse(mat):
+    r, c = mat.shape
+    assert r == c, 'Square matrix is required'
+    M_inv = np.zeros((r, c))
+    i = np.arange(c - 1)
+    M_inv[i, i] = [get_inverse_elm(mat, k, k) for k in range(c - 1)]
+    M_inv[i, i + 1] = [get_inverse_elm(mat, k, k+1) for k in range(c - 1)]
+    M_inv[i + 1, i] = [get_inverse_elm(mat, k+1, k) for k in range(c - 1)]
+    # filling in last element
+    M_inv[4, 4] = get_inverse_elm(mat, c-1, c-1)
+    
+    return M_inv
+
 def get_inverse_mat(mat):
     r, c = mat.shape
     assert r == c, 'Square matrix is required'
@@ -50,3 +63,4 @@ def get_inverse_mat(mat):
     Minv[diag_ind] = [get_inverse_elm(mat, i, i) for i in np.arange(mat.shape[0])]
    
     return Minv
+
