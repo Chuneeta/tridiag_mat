@@ -7,9 +7,9 @@ triagonal matrix and also the inverse of the whole matrix using https://en.wikip
 ### Dependencies
 * numpy
 
-### Installing tridiag_mat
+### Installing tridiag_mat\
 Clone the repo using
-`git clone https://github.com/Chuneeta/tridiag_mat.git`
-`cd beam_solver`
-`python setup.py install`
+`git clone https://github.com/Chuneeta/tridiag_mat.git`\
+`cd tridiag_mat`\
+`python setup.py install`\
 
