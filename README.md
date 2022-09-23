@@ -8,8 +8,8 @@ triagonal matrix and also the inverse of the whole matrix using https://en.wikip
 * numpy
 
 ### Installing tridiag_mat\
-Clone the repo using
+Clone the repo using\
 `git clone https://github.com/Chuneeta/tridiag_mat.git`\
 `cd tridiag_mat`\
-`python setup.py install`\
+`python setup.py install`
 
